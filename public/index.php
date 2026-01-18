@@ -2,10 +2,15 @@
 
 include_once '../includes/header.php';
 require_once '../api/mercados/criptosbd.php';
+require_once '../api/mercados/accionesbd.php';
 
 // Obtener criptomonedas de la base de datos
 $criptoBD = new CriptoBD();
 $resultadoCriptos = $criptoBD->obtenerCriptomonedas();
+
+// Obtener acciones de la base de datos
+$accionesBD = new AccionesBD();
+$resultadoAcciones = $accionesBD->obtenerAcciones();
 
 ?>
 
@@ -28,6 +33,29 @@ $resultadoCriptos = $criptoBD->obtenerCriptomonedas();
     <section class="content-section market-box">
         <h2 class="section-title">Acciones</h2>
         <div class="section-content">
+            <!---->
+
+            <?php if ($resultadoAcciones['success']): ?>
+                <div class="crypto-list">
+                    <?php foreach ($resultadoAcciones['data'] as $accion): ?>
+                        <div class="crypto-item">
+                            <div class="crypto-info">
+                                <h3 class="crypto-name"><?php echo htmlspecialchars($accion['nombre']); ?></h3>
+                                <p class="crypto-type"><?php echo htmlspecialchars($accion['tipo']); ?></p>
+                            </div>
+                            <p class="crypto-price">$<?php echo number_format($accion['precio'], 2); ?></p>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <p class="crypto-count">Total: <?php echo $resultadoAcciones['count']; ?> acciones</p>
+            <?php else: ?>
+                <p class="error-message">Error: <?php echo htmlspecialchars($resultadoAcciones['error']); ?></p>
+                <?php if (isset($resultadoAcciones['message'])): ?>
+                    <p class="error-details"><?php echo htmlspecialchars($resultadoAcciones['message']); ?></p>
+                <?php endif; ?>
+            <?php endif; ?>
+            
+            <!---->
         </div>
     </section>
     

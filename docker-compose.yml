@@ -12,6 +12,8 @@ services:
       - DB_NAME=newsletter_db
       - DB_USER=usr_botbi
       - DB_PASS=contrasena123
+    env_file:
+      - .env  # Carga variables de entorno desde .env
     depends_on:
       - postgres
 
@@ -33,6 +35,8 @@ services:
       - postgres 
     volumes:
       - .:/var/www/html
+    env_file:
+      - .env  # Carga variables de entorno desde .env
 
 volumes:
   db_data:
