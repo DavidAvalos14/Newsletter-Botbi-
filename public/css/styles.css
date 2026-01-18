@@ -171,3 +171,102 @@ body {
         margin: 20px 0;
     }
 }
+
+/*****/
+/* Crypto Styles */
+.crypto-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.crypto-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: var(--color-white);
+    border-radius: 15px;
+    border: 1px solid var(--color-border);
+    transition: transform 0.2s ease;
+}
+
+.crypto-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.crypto-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.crypto-info {
+    flex: 1;
+}
+
+.crypto-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--color-text);
+    margin: 0 0 5px 0;
+}
+
+.crypto-type {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+.crypto-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--color-primary);
+    margin: 0;
+}
+
+.crypto-count {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+
+.error-message {
+    color: #dc2626;
+    font-weight: bold;
+    padding: 15px;
+    background: #fee2e2;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.error-details {
+    color: #991b1b;
+    font-size: 14px;
+    padding: 10px;
+    background: #fef2f2;
+    border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+    .crypto-item {
+        padding: 12px;
+    }
+    
+    .crypto-image {
+        width: 35px;
+        height: 35px;
+        margin-right: 12px;
+    }
+    
+    .crypto-name {
+        font-size: 16px;
+    }
+    
+    .crypto-price {
+        font-size: 16px;
+    }
+}
+/*****/

@@ -1,0 +1,38 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    # ... resto de la configuración ...
+    environment:
+        # Variables definidas en config/db.php
+      - DB_HOST=postgres  
+      - DB_NAME=newsletter_db
+      - DB_USER=usr_botbi
+      - DB_PASS=contrasena123
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: newsletter_db
+      POSTGRES_USER: usr_botbi
+      POSTGRES_PASSWORD: contrasena123
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./database/db.sql:/docker-entrypoint-initdb.d/init.sql
+
+  mercados_worker:
+    build: .
+    command: php /var/www/html/api/mercados/cron_mercados.php
+    depends_on:
+      - postgres 
+    volumes:
+      - .:/var/www/html
+
+volumes:
+  db_data:
