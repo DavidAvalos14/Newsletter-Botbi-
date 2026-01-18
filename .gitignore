@@ -1,0 +1,6 @@
+# Omitir apikey y variables de entorno
+.env
+
+# Archivos temporales de carga de datos
+public/cargar_acciones.php
+public/cargar_criptos.php
