@@ -5,15 +5,13 @@ services:
       - "8080:80"
     volumes:
       - .:/var/www/html
-    # ... resto de la configuración ...
     environment:
-        # Variables definidas en config/db.php
       - DB_HOST=postgres  
       - DB_NAME=newsletter_db
       - DB_USER=usr_botbi
       - DB_PASS=contrasena123
     env_file:
-      - .env  # Carga variables de entorno desde .env
+      - .env
     depends_on:
       - postgres
 
@@ -27,16 +25,8 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
       - ./database/db.sql:/docker-entrypoint-initdb.d/init.sql
-
-  mercados_worker:
-    build: .
-    command: php /var/www/html/api/mercados/cron_mercados.php
-    depends_on:
-      - postgres 
-    volumes:
-      - .:/var/www/html
-    env_file:
-      - .env  # Carga variables de entorno desde .env
+    ports:
+      - "5432:5432"
 
 volumes:
   db_data:

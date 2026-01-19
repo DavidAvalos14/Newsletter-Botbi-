@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../api/newsletter/newsletter.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: index.php');
@@ -34,8 +35,20 @@ try {
                 ':password' => $hashedPassword
             ]);
             
+            // Enviar newsletter de bienvenida al nuevo suscriptor
+            $htmlContent = generarNewsletterHTML();
+            $resultadoEmail = enviarEmail(
+                $email,
+                '📰 Bienvenido a Avalos News - Tu Newsletter',
+                $htmlContent
+            );
+            
             $_SESSION['user_email'] = $email;
-            $_SESSION['success'] = 'Registro exitoso. Bienvenido!';
+            if ($resultadoEmail['success']) {
+                $_SESSION['success'] = 'Registro exitoso. ¡Te hemos enviado un newsletter de bienvenida!';
+            } else {
+                $_SESSION['success'] = 'Registro exitoso. Bienvenido!';
+            }
             header('Location: index.php');
             exit;
         } catch (PDOException $e) {
