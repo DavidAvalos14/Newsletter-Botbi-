@@ -4,3 +4,5 @@
 # Archivos temporales de carga de datos
 public/cargar_acciones.php
 public/cargar_criptos.php
+public/cargar_bus.php
+public/cargar_tec.php
