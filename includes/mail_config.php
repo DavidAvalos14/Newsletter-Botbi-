@@ -1,9 +1,12 @@
 <?php
 
+// Cargar PHPMailer manualmente desde la carpeta local
+require_once __DIR__ . '/PHPMailer/Exception.php';
+require_once __DIR__ . '/PHPMailer/PHPMailer.php';
+require_once __DIR__ . '/PHPMailer/SMTP.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
-require __DIR__ . '/../vendor/autoload.php';
 
 function enviarEmail($destinatario, $asunto, $contenido) {
     $mail = new PHPMailer(true);
