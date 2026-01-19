@@ -216,6 +216,45 @@ El sistema ejecuta las siguientes tareas automáticamente:
 docker exec -it newsletter_botbi-app-1 tail -f /var/log/cron.log
 ```
 
+### Carga Inicial de Datos
+
+Al desplegar por primera vez, los datos se cargarán automáticamente gracias a las tareas `@reboot` en crontab (después de 30-45 segundos).
+
+**Si los datos no se cargan automáticamente**, puedes ejecutarlos manualmente:
+
+#### Paso 1: Identificar el nombre del contenedor
+
+```bash
+# Ver contenedores activos con su nombre
+docker-compose ps
+
+# O usa este comando
+docker ps
+```
+
+Busca el contenedor del servicio **app** (ejemplo: `newsletter_botbi-app-1` o `newsletterbotbi-app-1`)
+
+#### Paso 2: Ejecutar scripts de carga manual
+
+Reemplaza `newsletter_botbi-app-1` con el nombre real de tu contenedor:
+
+```bash
+# Ejecutar todos los scripts de datos
+docker exec newsletter_botbi-app-1 php /var/www/html/api/mercados/criptosapi.php
+docker exec newsletter_botbi-app-1 php /var/www/html/api/mercados/accionesapi.php
+docker exec newsletter_botbi-app-1 php /var/www/html/api/noticias/tecnologiasapi.php
+docker exec newsletter_botbi-app-1 php /var/www/html/api/noticias/negociosapi.php
+```
+
+**Alternativa más simple (sin necesidad de saber el nombre):**
+
+```bash
+docker-compose exec app php /var/www/html/api/mercados/criptosapi.php
+docker-compose exec app php /var/www/html/api/mercados/accionesapi.php
+docker-compose exec app php /var/www/html/api/noticias/tecnologiasapi.php
+docker-compose exec app php /var/www/html/api/noticias/negociosapi.php
+```
+
 ---
 
 ## 📧 Sistema de Newsletter
