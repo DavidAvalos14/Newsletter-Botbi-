@@ -8,7 +8,7 @@ include_once __DIR__ . '/../../includes/db.php';
 $database = new Database();
 $pdo = $database->connect();
 
-// Obtén tu API Key gratuita en alphavantage.co
+// Endpoint Top 10 acciones con mejor ganancia
 $apiKey = getenv('API_KEY'); 
 $url = "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=" . $apiKey;
 

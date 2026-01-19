@@ -15,8 +15,10 @@ CREATE TABLE "mercados" (
 CREATE TABLE "noticias" (
     "news_uuid" UUID PRIMARY KEY DEFAULT gen_random_uuid(), -- Autogenerado
     "news_titulo" VARCHAR(255) UNIQUE NOT NULL,
+    "news_descripcion" TEXT NOT NULL,
     "news_contenido" TEXT NOT NULL,
     "news_fecha" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
     "news_categoria" VARCHAR(50) NOT NULL CHECK ("news_categoria" IN ('Tecnologia', 'Negocios')),
-    "news_url" TEXT UNIQUE NOT NULL 
+    "news_url" TEXT UNIQUE NOT NULL,
+    "news_imagen" TEXT NOT NULL
 );
