@@ -270,3 +270,238 @@ body {
     }
 }
 /*****/
+
+/* ========================================
+   ESTILOS DE NOTICIAS - NEWS CARDS
+   ======================================== */
+
+/* Grid de noticias - 3 columnas en desktop */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Card individual de noticia */
+.news-card {
+    background: var(--color-white);
+    border-radius: 15px;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Imagen de la noticia en el card */
+.news-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Cuerpo del card con texto */
+.news-card-body {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Título de la noticia */
+.news-card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    /*-webkit-line-clamp: 2;*/
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Descripción breve */
+.news-card-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+    display: -webkit-box;
+    /*-webkit-line-clamp: 3; */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Fecha de publicación */
+.news-card-date {
+    font-size: 12px;
+    color: #999;
+    margin: 0;
+    margin-top: auto;
+}
+
+/* Footer del card con botón */
+.news-card-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #e5e5e5;
+}
+
+/* Botón "Ver más" */
+.news-card-button {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 20px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.news-card-button:hover {
+    background: var(--color-hover-dark);
+}
+
+/* ========================================
+   ESTILOS DE DETALLE DE NOTICIA
+   ======================================== */
+
+/* Container principal del detalle */
+.news-detail {
+    background: var(--color-white);
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid var(--color-border);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Header con categoría y fecha */
+.news-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e5e5e5;
+}
+
+/* Categoría de la noticia */
+.news-detail-category {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--color-white);
+    background: var(--color-primary);
+    padding: 6px 15px;
+    border-radius: 20px;
+}
+
+/* Fecha de publicación en detalle */
+.news-detail-date {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Título principal */
+.news-detail-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--color-text);
+    line-height: 1.3;
+    margin-bottom: 25px;
+}
+
+/* Imagen destacada */
+.news-detail-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+/* Contenido completo de la noticia */
+.news-detail-content {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--color-text);
+    margin-bottom: 30px;
+}
+
+/* Footer con enlaces */
+.news-detail-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 2px solid #e5e5e5;
+}
+
+/* Enlace a fuente original */
+.news-detail-source {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.news-detail-source:hover {
+    color: var(--color-hover-dark);
+    text-decoration: underline;
+}
+
+/* Botón de volver */
+.news-detail-back {
+    color: #666;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.news-detail-back:hover {
+    color: var(--color-text);
+}
+
+/* ========================================
+   RESPONSIVE - NOTICIAS
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Grid de 1 columna en móvil */
+    .news-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    /* Reducir tamaño de imagen */
+    .news-card-image {
+        height: 180px;
+    }
+    
+    /* Ajustar padding del detalle */
+    .news-detail {
+        padding: 25px;
+    }
+    
+    /* Reducir tamaño del título */
+    .news-detail-title {
+        font-size: 24px;
+    }
+    
+    /* Footer en columna */
+    .news-detail-footer {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+}
