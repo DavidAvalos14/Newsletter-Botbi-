@@ -3,6 +3,8 @@
 // Obtención de noticias mediante la API de GNews
 
 include_once __DIR__ . '/../../includes/db.php';
+require_once __DIR__ . '/../helpers/content_new.php';
+require_once __DIR__ . '/../helpers/ai_helper.php';
 
 // Conexión a la bd
 $database = new Database();
@@ -36,6 +38,17 @@ if (isset($datos['articles']) && is_array($datos['articles'])) {
     
     foreach ($datos['articles'] as $articulo) {
         try {
+            // Extraer contenido completo mediante web scraping
+            $contenidoCompleto = extraerContenidoCompleto($articulo['url']);
+            
+            // Si no se pudo extraer, usar el contenido de la API
+            if (empty($contenidoCompleto)) {
+                $contenidoCompleto = $articulo['content'] ?? $articulo['description'] ?? 'Sin contenido';
+            } 
+            
+            // Reescribir contenido con IA
+            $contenidoReescrito = reescribirConIA($contenidoCompleto);
+            
             $sql = "INSERT INTO noticias (news_titulo, news_descripcion, news_contenido, news_categoria, news_url, news_imagen, news_fecha) 
                     VALUES (:titulo, :descripcion, :contenido, 'Tecnologia', :url, :imagen, :fecha)
                     ON CONFLICT (news_titulo) 
@@ -50,15 +63,13 @@ if (isset($datos['articles']) && is_array($datos['articles'])) {
             $stmt->execute([
                 ':titulo' => $articulo['title'] ?? 'Sin título',
                 ':descripcion' => $articulo['description'] ?? 'Sin descripción',
-                ':contenido' => $articulo['content'] ?? $articulo['description'] ?? 'Sin contenido',
+                ':contenido' => $contenidoReescrito,
                 ':url' => $articulo['url'] ?? '',
                 ':imagen' => $articulo['image'] ?? '',
                 ':fecha' => $articulo['publishedAt'] ?? date('c')
             ]);
             
-            $insertados++;
-            echo "✓ Noticia insertada: " . ($articulo['title'] ?? 'Sin título') . "\n";
-            
+            $insertados++;            
         } catch (PDOException $e) {
             echo "✗ Error con noticia '" . ($articulo['title'] ?? 'desconocida') . "': " . $e->getMessage() . "\n";
         }
