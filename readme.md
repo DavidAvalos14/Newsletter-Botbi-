@@ -30,7 +30,7 @@
 - **Propósito**: Agregación de noticias en español de México
 - **Categorías**: Tecnología y Negocios
 - **Características**: Filtrado por idioma (es), país (mx), con imágenes y metadatos
-- **Endpoint**: `https://gnews.io/api/v4/top-headlines`
+- **Endpoint**: `https://gnews.io/api/v4/top-headlines?category=business&lang=es&country=mx&max=20`
 
 ### 2. **Google Gemini AI (2.5 Flash)**
 - **Propósito**: Reescritura automática de contenido para originalidad
@@ -39,13 +39,13 @@
   - Generación de contenido periodístico profesional
   - Mantiene hechos y contexto original
   - Reformulación completa para evitar plagio
-- **Endpoint**: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent`
+- **Endpoint**: `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?`
 
 ### 3. **Alpha Vantage API**
 - **Propósito**: Datos de mercado de valores en tiempo real
 - **Características**: Top gainers/losers del mercado estadounidense
 - **Función**: `TOP_GAINERS_LOSERS`
-- **Endpoint**: `https://www.alphavantage.co/query`
+- **Endpoint**: `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS`
 
 ### 4. **CoinGecko API**
 - **Propósito**: Cotizaciones de criptomonedas
@@ -53,7 +53,7 @@
   - Precios en USD
   - Top 10 criptomonedas por capitalización de mercado
   - Datos actualizados en tiempo real
-- **Endpoint**: `https://api.coingecko.com/api/v3/coins/markets`
+- **Endpoint**: `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10`
 
 ### 5. **PHPMailer**
 - **Propósito**: Envío de correos electrónicos HTML
@@ -140,7 +140,7 @@ Antes de comenzar, asegúrate de tener instalado:
 ### Paso 1: Clonar el Repositorio
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone git@github.com:DavidAvalos14/Newsletter-Botbi-.git
 cd Newsletter(botbi)
 ```
 
@@ -153,10 +153,6 @@ Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
 API_KEY=TU_API_KEY_ALPHA_VANTAGE
 API_KEY_NEWS=TU_API_KEY_GNEWS
 API_KEY_GEMINI=TU_API_KEY_GOOGLE_GEMINI
-
-# Configuración SMTP (Gmail)
-SMTP_USER=tu_email@gmail.com
-SMTP_PASS=tu_contraseña_de_aplicacion_gmail
 ```
 
 #### 📌 Cómo Obtener las API Keys
@@ -372,8 +368,6 @@ docker exec -it newsletter_botbi-app-1 cat /var/log/cron.log
 
 ### Problema: No se envían correos
 
-- ✅ Verifica que `SMTP_USER` y `SMTP_PASS` estén en `.env`
-- ✅ Asegúrate de usar una "Contraseña de Aplicación" de Gmail
 - ✅ Verifica que el puerto 587 no esté bloqueado por firewall
 
 ### Problema: Error de base de datos
