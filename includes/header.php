@@ -10,9 +10,9 @@
     <nav class="navbar">
         <div class="logo">Avalos News</div>
         <nav class="nav-menu">
-            <a href="">Tecnología</a>
-            <a href="">Negocios</a>
-            <a href="">Mercados</a>
+            <a href="#tecnologia">Tecnología</a>
+            <a href="#negocios">Negocios</a>
+            <a href="#mercados">Mercados</a>
         </nav>
     </nav>
     

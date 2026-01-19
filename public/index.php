@@ -3,6 +3,8 @@
 include_once '../includes/header.php';
 require_once '../api/mercados/criptosbd.php';
 require_once '../api/mercados/accionesbd.php';
+require_once '../api/noticias/negociosbd.php';
+require_once '../api/noticias/tecnologiasbd.php';
 
 // Obtener criptomonedas de la base de datos
 $criptoBD = new CriptoBD();
@@ -12,24 +14,90 @@ $resultadoCriptos = $criptoBD->obtenerCriptomonedas();
 $accionesBD = new AccionesBD();
 $resultadoAcciones = $accionesBD->obtenerAcciones();
 
+$negociosBD = new NegociosBD();
+$resultadoNegocios = $negociosBD->obtenerNegocios();
+
+$tecnologiaBD = new TecnologiasBD();
+$resultadoTecnologia = $tecnologiaBD->obtenerTecnologias();
+
 ?>
 
 <!-- Noticias Tecnología -->
-<section class="content-section">
+<section class="content-section" id="tecnologia">
     <h2 class="section-title">Tecnología</h2>
     <div class="section-content">
+        <!---->
+
+        <?php if ($resultadoTecnologia['success']): ?>
+            <div class="news-grid">
+                <?php foreach ($resultadoTecnologia['data'] as $noticia): ?>
+                    <div class="news-card">
+                        <?php if (!empty($noticia['imagen'])): ?>
+                            <img src="<?php echo htmlspecialchars($noticia['imagen']); ?>" 
+                                 alt="<?php echo htmlspecialchars($noticia['titulo']); ?>"
+                                 class="news-card-image">
+                        <?php endif; ?>
+                        <div class="news-card-body">
+                            <h3 class="news-card-title"><?php echo htmlspecialchars($noticia['titulo']); ?></h3>
+                            <p class="news-card-description"><?php echo htmlspecialchars($noticia['descripcion']); ?></p>
+                            <p class="news-card-date"><?php echo date('d/m/Y H:i', strtotime($noticia['fecha'])); ?></p>
+                        </div>
+                        <div class="news-card-footer">
+                            <a href="noticia.php?id=<?php echo urlencode($noticia['uuid']); ?>" class="news-card-button">Ver más</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p class="error-message">Error: <?php echo htmlspecialchars($resultadoTecnologia['error']); ?></p>
+            <?php if (isset($resultadoTecnologia['message'])): ?>
+                <p class="error-details"><?php echo htmlspecialchars($resultadoTecnologia['message']); ?></p>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <!---->
     </div>
 </section>
 
 <!-- Noticias Negocios -->
-<section class="content-section">
+<section class="content-section" id="negocios">
     <h2 class="section-title">Negocios</h2>
     <div class="section-content">
+        <!---->
+
+        <?php if ($resultadoNegocios['success']): ?>
+            <div class="news-grid">
+                <?php foreach ($resultadoNegocios['data'] as $noticia): ?>
+                    <div class="news-card">
+                        <?php if (!empty($noticia['imagen'])): ?>
+                            <img src="<?php echo htmlspecialchars($noticia['imagen']); ?>" 
+                                 alt="<?php echo htmlspecialchars($noticia['titulo']); ?>"
+                                 class="news-card-image">
+                        <?php endif; ?>
+                        <div class="news-card-body">
+                            <h3 class="news-card-title"><?php echo htmlspecialchars($noticia['titulo']); ?></h3>
+                            <p class="news-card-description"><?php echo htmlspecialchars($noticia['descripcion']); ?></p>
+                            <p class="news-card-date"><?php echo date('d/m/Y H:i', strtotime($noticia['fecha'])); ?></p>
+                        </div>
+                        <div class="news-card-footer">
+                            <a href="noticia.php?id=<?php echo urlencode($noticia['uuid']); ?>" class="news-card-button">Ver más</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p class="error-message">Error: <?php echo htmlspecialchars($resultadoNegocios['error']); ?></p>
+            <?php if (isset($resultadoNegocios['message'])): ?>
+                <p class="error-details"><?php echo htmlspecialchars($resultadoNegocios['message']); ?></p>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <!---->
     </div>
 </section>
 
 <!-- Mercados (Acciones y Criptomonedas) -->
-<div class="market-container">
+<div class="market-container" id="mercados">
     <section class="content-section market-box">
         <h2 class="section-title">Acciones</h2>
         <div class="section-content">
