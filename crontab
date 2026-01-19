@@ -1,3 +1,9 @@
+# Ejecutar inmediatamente al iniciar (usando @reboot)
+@reboot sleep 30 && php /var/www/html/api/mercados/criptosapi.php >> /var/log/cron.log 2>&1
+@reboot sleep 35 && php /var/www/html/api/mercados/accionesapi.php >> /var/log/cron.log 2>&1
+@reboot sleep 40 && php /var/www/html/api/noticias/tecnologiasapi.php >> /var/log/cron.log 2>&1
+@reboot sleep 45 && php /var/www/html/api/noticias/negociosapi.php >> /var/log/cron.log 2>&1
+
 # Actualizar datos cada hora
 0 * * * * php /var/www/html/api/mercados/criptosapi.php >> /var/log/cron.log 2>&1
 0 * * * * php /var/www/html/api/mercados/accionesapi.php >> /var/log/cron.log 2>&1
