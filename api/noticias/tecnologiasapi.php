@@ -4,6 +4,7 @@
 
 include_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../helpers/content_new.php';
+require_once __DIR__ . '/../helpers/ai_helper.php';
 
 // Conexión a la bd
 $database = new Database();
@@ -45,6 +46,9 @@ if (isset($datos['articles']) && is_array($datos['articles'])) {
                 $contenidoCompleto = $articulo['content'] ?? $articulo['description'] ?? 'Sin contenido';
             } 
             
+            // Reescribir contenido con IA
+            $contenidoReescrito = reescribirConIA($contenidoCompleto);
+            
             $sql = "INSERT INTO noticias (news_titulo, news_descripcion, news_contenido, news_categoria, news_url, news_imagen, news_fecha) 
                     VALUES (:titulo, :descripcion, :contenido, 'Tecnologia', :url, :imagen, :fecha)
                     ON CONFLICT (news_titulo) 
@@ -59,7 +63,7 @@ if (isset($datos['articles']) && is_array($datos['articles'])) {
             $stmt->execute([
                 ':titulo' => $articulo['title'] ?? 'Sin título',
                 ':descripcion' => $articulo['description'] ?? 'Sin descripción',
-                ':contenido' => $contenidoCompleto,
+                ':contenido' => $contenidoReescrito,
                 ':url' => $articulo['url'] ?? '',
                 ':imagen' => $articulo['image'] ?? '',
                 ':fecha' => $articulo['publishedAt'] ?? date('c')
